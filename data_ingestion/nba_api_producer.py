@@ -12,10 +12,10 @@ API_HEADERS = {
 def fetch_today_games():
     today = datetime.now().strftime("%Y-%m-%d")
     params = {
-        "date": today,
-        "league": "standard",
-        "season": "2023"  # Update this if needed for current season
-    }
+    "date": "2025-03-21",  # Example date where games definitely occurred
+    "league": "standard",
+    "season": "2024"
+}
 
     response = requests.get(API_URL, headers=API_HEADERS, params=params)
 
