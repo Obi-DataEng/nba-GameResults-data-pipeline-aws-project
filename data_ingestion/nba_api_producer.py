@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 
-# Replace this with your actual RapidAPI credentials or endpoint
+# Replace with your actual RapidAPI credentials
 conn = http.client.HTTPSConnection("api-nba-v1.p.rapidapi.com")
 
 headers = {
@@ -12,7 +12,11 @@ headers = {
 
 def fetch_today_games():
     today = datetime.now().strftime("%Y-%m-%d")
-    params = {"date": today, "league": "standard", "season": "2024"}  # adjust season if needed
+    params = {
+        "date": today,
+        "league": "standard",
+        "season": "2023"  # or adjust based on current season year
+    }
 
     response = requests.get(API_URL, headers=API_HEADERS, params=params)
 
@@ -20,13 +24,12 @@ def fetch_today_games():
         data = response.json()
         print(json.dumps(data, indent=4))  # Pretty print results
 
-        # Save sample to file for reference
         with open("sample_nba_games.json", "w") as f:
             json.dump(data, f, indent=4)
-        print("Sample data saved to sample_nba_games.json")
+        print("Data saved to sample_nba_games.json")
 
     else:
-        print(f"Failed to fetch data: {response.status_code}, {response.text}")
+        print(f"API call failed with status: {response.status_code}, reason: {response.text}")
 
 if __name__ == "__main__":
     fetch_today_games()
