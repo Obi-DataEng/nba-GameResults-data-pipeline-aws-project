@@ -2,12 +2,11 @@ import requests
 import json
 from datetime import datetime
 
-# Replace with your actual RapidAPI credentials
-conn = http.client.HTTPSConnection("api-nba-v1.p.rapidapi.com")
-
-headers = {
-    'x-rapidapi-key': "f9bf19e726msh44f2985426204aep1d9c49jsn34da4309cf5b",
-    'x-rapidapi-host': "api-nba-v1.p.rapidapi.com"
+# Replace this with your actual RapidAPI credentials
+API_URL = "https://api-nba-v1.p.rapidapi.com/games"
+API_HEADERS = {
+    "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",  # <-- Add your API key here
+    "X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
 }
 
 def fetch_today_games():
