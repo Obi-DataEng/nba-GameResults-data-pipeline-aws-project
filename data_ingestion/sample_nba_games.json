@@ -2,7 +2,7 @@
     "get": "games/",
     "parameters": {
         "league": "standard",
-        "date": "2025-03-21",
+        "date": "2025-03-22",
         "season": "2024"
     },
     "errors": [],
