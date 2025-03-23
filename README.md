@@ -1,2 +1,1 @@
-# nba-dataflow-project
-A real-time NBA data engineering project that ingests live stats, processes data streams, and delivers insights through automated pipelines and visual dashboards. Built for portfolio demonstration and showcasing end-to-end data engineering skills.
+This project is an end-to-end data engineering pipeline that ingests daily NBA game data from the balldontlie.io API, streams it to AWS Kinesis, stores it in S3, and sends daily game summary emails with dynamic ESPN recap links.
