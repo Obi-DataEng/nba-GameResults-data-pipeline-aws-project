@@ -1,35 +1,56 @@
+import boto3
 import requests
 import json
-from datetime import datetime
+import datetime
+import time
+import os
 
-# Replace with your actual RapidAPI credentials
-API_URL = "https://api-nba-v1.p.rapidapi.com/games"
-API_HEADERS = {
-    'x-rapidapi-key': "f9bf19e726msh44f2985426204aep1d9c49jsn34da4309cf5b",  # <-- Add your API key here
-    "X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
-}
+# AWS Kinesis setup
+kinesis_client = boto3.client('kinesis', region_name='us-east-1')
+stream_name = ''  # make sure this matches your Kinesis stream name
 
-def fetch_today_games():
-    today = datetime.now().strftime("%Y-%m-%d")
+# Your BallDontLie API key
+API_KEY = 'API Key'
+API_URL = 'https://api.balldontlie.io/v1/games'
+
+# Function to fetch yesterday's games
+def get_yesterdays_games():
+    yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
+    print(f"Fetching games for {yesterday}...")
     params = {
-    "date": "2025-03-21",  # Example date where games definitely occurred
-    "league": "standard",
-    "season": "2024"
-}
+        'start_date': yesterday,
+        'end_date': yesterday,
+        'per_page': 100
+    }
+    headers = {'Authorization': API_KEY}
 
-    response = requests.get(API_URL, headers=API_HEADERS, params=params)
-
-    if response.status_code == 200:
+    try:
+        response = requests.get(API_URL, params=params, headers=headers)
+        response.raise_for_status()
         data = response.json()
-        print(json.dumps(data, indent=4))  # Pretty print the result
+        return data.get('data', [])
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+        return []
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+        return []
 
-        # Save sample JSON for reference
-        with open("sample_nba_games.json", "w") as f:
-            json.dump(data, f, indent=4)
-        print("Sample data saved to sample_nba_games.json")
-
-    else:
-        print(f"Failed to fetch data: {response.status_code}, {response.text}")
+# Function to send data to Kinesis
+def send_to_kinesis(game_data):
+    for game in game_data:
+        json_data = json.dumps(game)
+        response = kinesis_client.put_record(
+            StreamName=stream_name,
+            Data=json_data,
+            PartitionKey=str(game['id'])
+        )
+        print(f"Sent game ID {game['id']} to Kinesis with response: {response}")
 
 if __name__ == "__main__":
-    fetch_today_games()
+    games = get_yesterdays_games()
+    if games:
+        send_to_kinesis(games)
+        print(f"✅ Sent {len(games)} games to Kinesis!")
+    else:
+        print("❌ No games found or failed to fetch.")
