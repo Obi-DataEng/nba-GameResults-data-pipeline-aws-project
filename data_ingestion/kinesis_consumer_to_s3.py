@@ -7,8 +7,8 @@ from datetime import datetime
 kinesis_client = boto3.client('kinesis')
 s3_client = boto3.client('s3')
 
-stream_name = 'nba-live-data-stream'
-s3_bucket = 'nba-kinesis-consumer-bucket-ookon-2025'
+stream_name = ''
+s3_bucket = ''
 
 def get_all_shards(stream_name):
     response = kinesis_client.describe_stream(StreamName=stream_name)
