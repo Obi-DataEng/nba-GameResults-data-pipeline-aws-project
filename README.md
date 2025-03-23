@@ -63,6 +63,3 @@ python kinesis_consumer_to_s3.py
 
 ## 👨🏾‍💻 Author
 Obinna Okonkwo
-
-## 📜 License
-This project is licensed under the MIT License.
