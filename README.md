@@ -1,68 +1,60 @@
-🚀 Tech Stack
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Data Engineering Pipeline Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        header { background: #24292e; color: white; padding: 20px; text-align: center; }
+        section { padding: 40px; max-width: 900px; margin: auto; background: white; margin-top: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 20px; color: #777; }
+    </style>
+</head>
+<body>
 
-AWS Kinesis (Data Streaming)
+<header>
+    <h1>NBA Data Engineering Pipeline Project</h1>
+    <p>By Obinna Okonkwo</p>
+</header>
 
-AWS S3 (Storage)
+<section>
+    <h2>📚 Overview</h2>
+    <p>This end-to-end pipeline ingests daily NBA game data from <a href="https://www.balldontlie.io" target="_blank">balldontlie.io</a>, streams it to AWS Kinesis, stores it in S3, and sends daily summaries with ESPN links via email.</p>
 
-AWS Lambda (Orchestration + Email Trigger)
+    <h2>🔗 Architecture Diagram</h2>
+    <img src="https://user-images.githubusercontent.com/your-diagram-link-here.png" alt="Architecture Diagram" width="100%">
 
-AWS SES (Email Service)
+    <h2>🚀 Tech Stack</h2>
+    <ul>
+        <li>AWS Kinesis, S3, Lambda, SES</li>
+        <li>Python 3.12 (Requests, Boto3)</li>
+        <li>Terraform for infrastructure</li>
+    </ul>
 
-Python 3.12
+    <h2>📂 Key Features</h2>
+    <ul>
+        <li>Automated daily NBA game ingestion</li>
+        <li>Real-time Kinesis streaming</li>
+        <li>Storage to timestamped S3 JSON files</li>
+        <li>Dynamic ESPN recap links in email notifications</li>
+        <li>Fully deployed with Terraform</li>
+    </ul>
 
-requests, boto3 libraries
+    <h2>📧 Example Email Output</h2>
+    <img src="https://user-images.githubusercontent.com/your-email-screenshot-link.png" alt="Email Example" width="100%">
 
-Terraform (Infrastructure as Code)
+    <h2>📁 <a href="https://github.com/YourUsername/nba-data-pipeline" target="_blank">View the full code on GitHub</a></h2>
 
-🛠 AWS Setup
+</section>
 
-Kinesis Stream: nba-game-stream with 4 shards.
+<footer>
+    <p>Made with ❤️ by Obinna Okonkwo</p>
+</footer>
 
-S3 Bucket: nba-kinesis-consumer-bucket-ookon-2025.
-
-Lambda Environment Variables:
-
-API_KEY: Your NBA API Key
-
-BUCKET_NAME: Your S3 bucket name
-
-SES_EMAIL_FROM: Verified SES sender email
-
-SES_EMAIL_TO: Recipient email
-
-⚙️ How to Run
-
-1. Run Producer
-
-cd data_ingestion
-python nba_api_producer.py
-
-2. Run Consumer
-
-python kinesis_consumer_to_s3.py
-
-3. Trigger Lambda (Manually or on schedule)
-
-Upload zipped Lambda function package.
-
-Test from AWS Lambda console or set up CloudWatch Event trigger.
-
-📧 Email Format
-
-Subject: NBA Game Summaries for Yesterday
-
-Game summaries with scores and ESPN Recap links.
-
-Direct link to download the JSON from S3.
-
-✅ Features
-
-Real-time data ingestion.
-
-Batch consumption from multiple shards.
-
-JSON file storage with timestamp naming.
-
-Automated SES emails with scores and recaps.
-
-ESPN recap links generated dynamically.
+</body>
+</html>
